@@ -8,10 +8,25 @@ https://www.youtube.com/watch?v=-hyQDlgSMUs
 the id of the video is -hyQDlgSMUs.
 ```
 
-## How it works
+### System
+The project only runs on Linux. To adapt it to other operating systems, modify the download_command in
+[download_youtube.py](file_preprocessor/download_youtube.py).
+
+### Requirements
+To download the videos, install ffmpeg in your computer. You can find further informations on how to do it [here](https://www.ffmpeg.org/download.html).
+
+For the processing, you need to install os and regex.
+```
+pip install os
+pip install regex
+```
+
+### How to use it
+
+You only need to clone the project and run the main file.
 
 Inputs: place the youtube identifiers of the videos you want to process in the file resources/ids_list.
-
+For example:
 ```
 "Yn5Hypn5Zxs"
 "4KzGdW3OwZM"
