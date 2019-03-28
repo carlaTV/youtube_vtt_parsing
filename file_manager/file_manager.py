@@ -3,7 +3,7 @@ import re
 
 class FileManager:
     def __init__(self):
-        self.path = 'resources/word_timestamps/{}.json'
+        self.path = 'resources/word_timestamps/{}.txt'
 
     def write_results_opening(self, id):
         path = self.path.format(id)
