@@ -1,4 +1,4 @@
-# youtube_vtt_parsing
+# Parsing Youtube subtitles 
 
 This project returns a list of a Youtube video's transcription along with each word's timestamps. It uses the Youtube video id as input.
 
