@@ -16,9 +16,6 @@ class Dictlist(dict):
 class VTTManager:
     """ clean and parse subtitles associated to each video """
 
-    def __init__(self):
-        self.ids = []
-
     def get_ids(self):
         video_names = []
         for dir, dirnames, filenames in os.walk('resources/youtube_downloads'):
@@ -27,31 +24,12 @@ class VTTManager:
                 video_names.append(name)
         return video_names
 
-    def remove_heading(self, path_vtt, id, lang):
-        new_file_path = 'resources/youtube_downloads/{}/{}_heading_removed.{}.vtt'
-        new_file_path = new_file_path.format(id, id, lang)
-        with open(path_vtt, 'r') as f:
-            text = f.readlines()
-            for num, line in enumerate(text):
-                # if line == '##\n':
-                if line.startswith('00:'):
-                    heading_ends = num
-                    break
-                else:
-                    heading_ends = 0
-            new_text = text[heading_ends - 1:len(text)]
-        with open(new_file_path, 'w') as fn:
-            fn.write('')
-        with open(new_file_path, 'a') as fn:
-            for num, line in enumerate(new_text):
-                fn.write(line)
-
-    def open_selected_files(self, id):
+    def open_selected_files(self, id, lang):
         path = 'resources/youtube_downloads/{}'
         path = path.format(id)
         for dir, dirname, filenames in os.walk(path):
             for name in filenames:
-                if re.search('_heading_removed', name):
+                if re.search('_heading_removed', name) and re.search(lang, name):
                     id_parsed_vtt, words_times = self.parse_vtt_word_time(id, name)
         return id_parsed_vtt, words_times
 
@@ -150,11 +128,14 @@ class VTTManager:
             # print(id_parsed_vtt)
             return id_parsed_vtt, words_times
 
-    def parse_vtt(self):
+    def parse_vtt(self, ids, lang):
         data = []
         data_list = {}
-        for id in self.ids:
-            id_parsed_vtt, words_times = self.open_selected_files(id)
-            data.append(id_parsed_vtt)
-            data_list.update({id: words_times})
+        for id in ids:
+            try:
+                id_parsed_vtt, words_times = self.open_selected_files(id, lang)
+                data.append(id_parsed_vtt)
+                data_list.update({id: words_times})
+            except Exception:
+                print('could not process file %s' %id)
         return data, data_list
