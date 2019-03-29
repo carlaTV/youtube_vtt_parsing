@@ -17,7 +17,7 @@ class FileManager:
         with open(self.path.format(id), 'a') as f:
             for num, elem in enumerate(to_write):
                 word_timestamp = word_timestamp.format(elem[0], elem[1])
-                if num != len(to_write)-1:
+                if num != len(to_write) - 1:
                     f.write(word_timestamp)
                 else:
                     f.write(re.sub(',', '', word_timestamp))
@@ -32,13 +32,13 @@ class FileManager:
                 word = word.format(elem)
                 f.write(word)
                 for iter, time in enumerate(to_write[elem]):
-                    if iter != len(to_write[elem])-1:
+                    if iter != len(to_write[elem]) - 1:
                         f.write(timestamps.format(time))
                     else:
                         f.write(re.sub(',', '', timestamps.format(time)))
                     timestamps = '\t\t"{}",\n'
                 word = '\t"{}" : [\n'
-                if num != len(to_write)-1:
+                if num != len(to_write) - 1:
                     f.write('\t\t],\n')
                 else:
                     f.write('\t\t]\n')
