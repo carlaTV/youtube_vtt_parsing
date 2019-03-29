@@ -1,19 +1,19 @@
 import os
-from os import walk
 import re
 
-class YoutubeDownloader():
+
+class YoutubeDownloader:
     def __init__(self):
         self.videos_list = []
         self.download_command = "youtube-dl --output \"{}\" --all-subs --write-auto-sub " \
-                   "--extract-audio --audio-format mp3 " \
-                   "https://www.youtube.com/watch?v={}"
+                                "--extract-audio --audio-format mp3 " \
+                                "https://www.youtube.com/watch?v={}"
 
     def read_ids(self):
         with open('resources/ids_list', 'r') as f:
             videos = f.readlines()
             for id in videos:
-                id = re.sub('\n','', id)
+                id = re.sub('\n', '', id)
                 id = re.sub('"', '', id)
                 self.videos_list.append(id)
         return self.videos_list
@@ -23,7 +23,8 @@ class YoutubeDownloader():
         for id in self.videos_list:
             if not os.path.exists(path_to_check.format(id)):
                 try:
-                    path = '/home/carlatv/PycharmProjects/youtube_vtt_parsing/resources/youtube_downloads/{}/{}.%(ext)s.%(ext)s'
+                    path = '/home/carlatv/PycharmProjects/youtube_vtt_parsing/' \
+                           'resources/youtube_downloads/{}/{}.%(ext)s.%(ext)s'
                     # path = 'resources/.%(ext)s.%(ext)s'
                     path = path.format(id, id)
                     # print(path, id)
